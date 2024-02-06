@@ -1,0 +1,224 @@
+{% extends 'base2.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Restaurant Warenkorb</title>
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            margin: 70px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 25px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .quantity-dropdown,
+        .special-dropdown {
+            width: 150px;
+            height: auto;
+        }
+
+        .checkout-btn {
+            padding: 20px;
+            background-color: rgb(16, 162, 16);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .button-container .link-button {
+            background-color: #10ab3cd0;
+            border: none;
+            color: white;
+            padding: 3px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 1px 0.5px;
+            cursor: pointer;
+        }
+
+        .custom-dropdown {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .selected-value {
+            display: inline-block;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            display: none;
+            border: 1px solid #ccc;
+        }
+
+        .option {
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .custom-dropdown.open .options {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="text-align: center;">
+        <strong><i>
+                <h1>{{ restaurant['Name'] }}</h1>
+            </i></strong>
+    </div>
+    <br>
+    <br>
+    <h1 style="color: rgb(16, 162, 16); text-align: center; font-family: Arial, Helvetica, sans-serif;"> <b> Warenkorb </b> </h1>
+    <br>
+    <br>
+    <br>
+
+    <table>
+        <thead><!-- Groups the header content in a table -->
+            <tr><!-- Defines a row in a table -->
+                <th>Artikel</th> <!-- Defines a header cell in a table -->
+                <th>Preis (€)</th>
+                <th>Total </th>
+                <th>Aktion</th>
+            </tr>
+        </thead>
+        <tbody> <!-- Groups the body content in a table -->
+            {% for item in cart %}
+            <tr>
+                <td>{{ item['item_name'] }}</td>
+                <td>{{ item['item_price'] }} </td>
+                <td class="total-price">{{ item['total_price'] }}</td>
+                <td>
+
+                    <form
+                        action="{{ url_for('remove_from_cart', item_name=item['item_name'], restaurant_id=restaurant['restaurant_ID']) }}"
+                        method="post">
+                        <button type="submit" class="btn btn-danger">Entfernen</button>
+                    </form>
+
+                </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="button-container" style="text-align: center;">
+        <form action="{{ url_for('submit_order') }}" method="post"> 
+            <p class="total">
+            <h3 style="text-align: center;">Gesamt: <span id="grandTotal">{{ grand_total }}</span> </h3>
+            <input type="hidden" name="grand_total" value="{{grand_total}}">
+
+            </p>
+            <br>
+            <br>
+
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label"><b><i>Anmerkungen hinzufügen</i></b></label>
+                <textarea class="form-control" id="anmerkung" name="anmerkung" style="width: 60%; height: 7px;"
+                    placeholder="Hier schreiben"></textarea>
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <input type="hidden" name="restaurant_id" value="{{ restaurant_id }}">
+            <input type="hidden" name="restaurant_name" value="{{ restaurant['Name'] }}">
+
+            {% for item in cart %}
+            <input type="hidden" name="cart[]" value="{{ item }}">
+            {% endfor %}
+
+            <button type="submit" class="checkout-btn link-button" onclick="bestellungAbschicken()">Bestellung
+                abschicken</button>
+        </form>
+
+        <a href="{{ url_for('show_restaurants') }}" class="checkout-btn link-button"
+            onclick="stornieren()">Stornieren</a>
+    </div>
+
+
+    <script>
+        // Fonction appelée lors du chargement de la page pour calculer le total initial
+        document.addEventListener('DOMContentLoaded', function () {
+            calculateGrandTotal();
+        });
+
+       
+
+        // Fonction pour calculer le total général
+         function calculateGrandTotal() {
+            var rows = document.querySelectorAll('tbody tr');
+            var grandTotal = 0;
+
+            // Parcourir chaque ligne du tableau
+            rows.forEach(function (row) {
+                var totalCell = row.cells[2]; // Index de la cellule total
+                grandTotal += parseFloat(totalCell.textContent); // Ajouter le total de chaque ligne au total général
+            });
+
+            // Afficher le total général
+            var grandTotalElement = document.getElementById('grandTotal');
+            grandTotalElement.textContent = grandTotal.toFixed(2) + " €";
+        }
+
+        // Fonction appelée lors de la soumission de la commande
+        function bestellungAbschicken() {
+            var smileyEmoji = '\u{1F60A}';
+            alert("Vielen Dank für Ihre Bestellung!" + smileyEmoji);
+            // Réinitialiser le panier en affectant une liste vide à la variable cart
+            cart = [];
+
+
+            // Recalculer le total général après avoir vidé le panier
+            calculateGrandTotal();
+        }
+
+        // Fonction appelée lors de l'annulation de la commande
+        function stornieren() {
+            var bestätigen = confirm("Möchten Sie diese Bestellung wirklich stornieren?");
+            if (!bestätigen) {
+                event.preventDefault(); // Empêcher l'action par défaut (redirection du lien)
+            } else {
+                var sadEmoji = '\u{1F614}';
+                alert("Die Bestellung wurde storniert!" + sadEmoji);
+                // Rien à faire, rester sur la même page
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
+
+{% endblock %}

@@ -1,0 +1,301 @@
+{% extends 'base3.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="myPraktikum.css" type="text/css">
+    <style>
+        .button {
+            background-color: #026843;
+            border: none;
+            color: white;
+            padding: 3px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 1px 0.5px;
+            cursor: pointer;
+        }
+
+        .logo {
+            max-width: 100%;
+            height: auto;
+            position: absolute;
+            top: -198px;
+            left: 2px;
+            /* remplace par 200 si tu veux que ce soit bien sur ton grand moniteur*/
+            margin: 140px;
+            /* Optional: Fügt einen Abstand zum Rand hinzu */
+        }
+
+        .c2 {
+            width: 200px;
+            height: 500px;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+        }
+
+        .round3 {
+            border: 4px solid black;
+            text-align: center;
+            border-radius: 25px;
+            margin-left: 650px;
+            width: 750px;
+            height: 150px;
+            line-height: 29px;
+            word-spacing: 0px;
+            text-shadow: 2px 1px green;
+            font-family: cursive;
+            font-size: 1.5px;
+        }
+
+        #grad1 {
+            height: 250px;
+            margin-left: 200px;
+            background-color: rgb(228, 235, 228);
+            background-image: linear-gradient(rgb(124, 234, 124), rgb(0, 225, 255));
+        }
+
+        .input-group {
+            text-align: center;
+            width: 900px;
+            height: 430px;
+            margin-left: 100px;
+            padding: 200px 100px;
+        }
+
+        .card-img-top {
+            max-width: 30%;
+            height: auto;
+        }
+
+        body {
+            background-color: white;
+            /* Hintergrundfarbe für den gesamten Body */
+        }
+
+        .container {
+            background-color: white;
+            /* Hintergrundfarbe für den Container */
+            padding: 15px;
+            border-radius: 10px;
+            /* Abgerundete Ecken für den Container */
+            box-shadow: 0 0 10px rgba(33, 189, 41, 0.954);
+            /* Schatten für den Container */
+        }
+
+        .card-body {
+            text-align: center;
+        }
+
+        .h4 {
+            text-shadow: 2px 2px 4px rgba(16, 223, 147, 0.975);
+        }
+
+        .ItemType {
+            margin-bottom: 20px;
+        }
+
+        .pad {
+            padding: 12px;
+
+        }
+    </style>
+    <title>DashRest</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="d-flex align-items-center">
+            <img src="{{ restaurant['Bild_path'] }}" alt="{{ restaurant['Name'] }} Logo" width="200" height="150">
+
+        </div>
+
+        <div>
+            <strong><i style="text-align: center;">
+                    <h1>{{ restaurant['Name'] }}</h1>
+                </i></strong>
+            <p>
+            <h5 style=" text-align: center;">{{ restaurant['Beschreibung'] }}</h5>
+            </p>
+            <p style="text-align: center;">Adresse: {{ restaurant['Adresse'] }}</p>
+        </div>
+        <br>
+        <br>
+        <br>
+        <h1 style="text-align: center;"><strong><i style="color: rgb(8, 171, 8)">Speisekarte</i></strong></h1>
+
+        <h2><u>Vorspeisen</u></h2>
+        <br>
+        {% set link_added = false %}
+        <!-- pour se rassurer que le lien pour l´ajout s´affiche uniquement á la fin de la categorie -->
+        <div class="ItemType">
+            {% for dish in vorspeisen %}
+            <div class="d-flex align-items-center">
+                <img src="{{ url_for('static', filename=dish['VBild']) }}" alt="{{ dish['VName'] }}"
+                    style="width:100px;height:100px; margin-right: 10px;">
+                <p>
+                    <b style="font-size: large;">{{ dish['VName'] }}</b><br>
+                    <i>Zutaten: {{ dish['VBeschreibung'] }}</i><br>
+                    <b><i>{{ dish['VPreis'] }} €</i></b>
+
+                <div class="d-flex justify-content-between">
+                    <a href="{{ url_for('edit_dish',category='Vorspeisen', dish_id=dish['VID']) }}"
+                        class="btn btn-secondary mr-2" style="background-color: #026843;">Bearbeiten
+                    </a>
+                    <form action="{{ url_for('delete_dish', category='Vorspeisen', dish_id=dish['VID']) }}"
+                        method="post"> <button type="submit" style="background-color: #b70606;"
+                            class="btn btn-secondary"> Gericht löschen</button>
+                    </form>
+                </div>
+                </p>
+            </div>
+            <br>
+            <br>
+            {% endfor %}
+            {% if not link_added %}
+            <!-- pour se rassurer que le lien pour l´ajout s´affiche uniquement á la fin de la categorie -->
+            <div>
+                <a href="{{ url_for('add_dish', category='Vorspeisen', restaurant_id=restaurant['restaurant_ID']) }}"
+                    class="btn btn-secondary mr-2" style="background-color: #49b265e1;">Vorspeisen hinzufügen</a>
+                {% set link_added = true %}
+            </div>
+            {% endif %}
+        </div>
+        <br>
+
+        {% set link_added = false %}
+        <div class="ItemType">
+            <h2><u>Hauptgerichte</u></h2>
+            <br>
+
+            <br>
+            {% for dish in hauptgerichte %}
+            <div class="d-flex align-items-center">
+                <img src="{{ url_for('static', filename=dish['HBild']) }}" alt="{{ dish['Hname'] }}"
+                    style="width:100px;height:100px; margin-right: 10px;">
+                <p>
+                    <b style="font-size: large;">{{ dish['Hname'] }}</b><br>
+                    <i>Zutaten: {{ dish['HBeschreibung'] }}<br>
+                        <b>{{ dish['HPreis'] }} €</i></b>
+                <div class="d-flex justify-content-between">
+                    <a href="{{ url_for('edit_dish', category='Hauptgericht', dish_id=dish['HID']) }}"
+                        class="btn btn-secondary mr-2" style="background-color: #026843;">Bearbeiten</a>
+                    <form action="{{ url_for('delete_dish', category='Vorspeisen', dish_id=dish['HID']) }}"
+                        method="post">
+                        <button class="btn btn-secondary" style="background-color: #b70606;" type="submit">Gericht
+                            löschen</button>
+                    </form>
+
+                </div>
+                </p>
+            </div>
+            <br>
+            <br>
+            {% endfor %}
+            
+            {% if not link_added %}
+            <div>
+                <a href="{{ url_for('add_dish', category='Hauptgericht', restaurant_id=restaurant['restaurant_ID']) }}"
+                    class="btn btn-secondary mr-2" style="background-color: #49b265e1;">Hauptgerichte hinzufügen</a>
+                {% set link_added = true %}
+            </div>
+            {% endif %}
+
+        </div>
+
+
+        <div class="ItemType">
+            <h2><u>Nachtisch</u></h2>
+            <br>
+            {% set link_added = false %}
+            <br>
+            {% for dish in nachtisch %}
+            <div class="d-flex align-items-center">
+                <img src="{{ url_for('static', filename=dish['NBild']) }}" alt="{{ dish['Nname'] }}"
+                    style="width:100px;height:100px; margin-right: 10px;">
+                <p>
+                    <b style="font-size: large;">{{ dish['Nname'] }}</b><br>
+                    <i>{{ dish['NBeschreibung'] }}<br>
+                        <b>{{ dish['NPreis'] }} €</i></b>
+                <div class="d-flex justify-content-between">
+                    <a href="{{ url_for('edit_dish', category='Nachtisch', dish_id=dish['NID']) }}"
+                        class="btn btn-secondary mr-2" style="background-color: #026843;">Bearbeiten</a>
+                    <form action="{{ url_for('delete_dish', category='Nachtisch', dish_id=dish['NID']) }}"
+                        method="post">
+                        <button type="submit" style="background-color: #b70606;" class="btn btn-secondary">Gericht
+                            löschen</button>
+                    </form>
+
+                </div>
+
+
+                </p>
+
+            </div>
+            <br>
+            {% endfor %}
+            {% if not link_added %}
+            <div>
+                <a href="{{ url_for('add_dish', category='Nachtisch', restaurant_id=restaurant['restaurant_ID']) }}"
+                    class="btn btn-secondary mr-2" style="background-color: #49b265e1;">Desserts hinzufügen</a>
+                {% set link_added = true %}
+            </div>
+            {% endif %}
+        </div>
+
+
+
+        <div class="ItemType">
+            <div class="ItemType">
+                <h2><u>Getränke</u></h2>
+                <br>
+                {% set link_added = false %}
+                <br>
+                {% for dish in getraenke %}
+                <div class="d-flex align-items-center">
+                    <img src="{{ url_for('static', filename=dish['GBild']) }}" alt="{{ dish['GName'] }}"
+                        style="width:100px;height:100px; margin-right: 10px;">
+                    <div>
+                        <b style="font-size: large;">{{ dish['Gname'] }}</b><br>
+                        <i>{{ dish['GBeschreibung'] }}<br>
+                            <b>{{ dish['GPreis'] }} €</i></b>
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('edit_dish',category='Getraenke', dish_id=dish['GID']) }}"
+                                class="btn btn-secondary mr-2" style="background-color: #026843;">Bearbeiten</a>
+                            <form action="{{ url_for('delete_dish', category='Vorspeisen', dish_id=dish['GID']) }}"
+                                method="post">
+                                <button class="btn btn-secondary" style="background-color: #b70606;"
+                                    type="submit">Gericht löschen</button>
+                            </form>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <br>
+                {% endfor %}
+                {% if not link_added %}
+                <div>
+                    <a href="{{ url_for('add_dish', category='Getraenke', restaurant_id=restaurant['restaurant_ID']) }}"
+                        class="btn btn-secondary mr-2" style="background-color: #49b265e1;">Getränke hinzufügen</a>
+                    {% set link_added = true %}
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
+{% endblock %}

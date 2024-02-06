@@ -1,0 +1,77 @@
+{% extends 'base3.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="myPraktikum.css" type="text/css">
+    <style>
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(33, 189, 41, 0.954);
+            background-color: #fff;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            display: inline-block;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <title>Add Dish</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-container">
+            <form method="post" action="{{ url_for('add_dish', category=category, restaurant_id=restaurant['restaurant_ID']) }}" enctype="multipart/form-data">
+                <label for="bild">Bild hochladen:</label>
+                <input type="file" name="bild" accept="image/*">
+
+                <label for="name">Name:</label>
+                <input type="text" name="name" required>
+
+                <label for="beschreibung">Beschreibung:</label>
+                <textarea name="beschreibung" required></textarea>
+
+                <label for="preis">Preis:</label>
+                <input type="number" name="preis" step="0.01" required>
+
+                <button type="submit" class="btn btn-success">Speichern</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock %}
+
+
+

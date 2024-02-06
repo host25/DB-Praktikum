@@ -1,0 +1,97 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .button {
+            background-color: #026843;
+            border: none;
+            color: white;
+            padding: 3px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 1px 0.5px;
+            cursor: pointer;
+        }
+        .logo { 
+            max-width: 100%;
+            height: auto;
+            position: absolute;
+            top: -198px;
+            left:2px;     /* remplace par 200 si tu veux que ce soit bien sur ton grand moniteur*/
+            margin: 140px; /* Optional: Fügt einen Abstand zum Rand hinzu */
+        }
+        .c2{
+            width: 200px;
+            height: 500px;
+            position:absolute;
+            top: 0;
+            left: 0;
+
+        }
+        .round3 {
+            border: 4px solid black;
+            text-align: center;
+            border-radius: 25px;
+            margin-left: 650px;
+            width: 750px;
+            height: 150px;
+            line-height: 29px;
+            word-spacing: 0px;
+            text-shadow: 2px 1px green;
+            font-family:cursive;
+            font-size: 1.5px;
+        }
+        #grad1 {
+            height: 250px;
+            margin-left: 200px;
+            background-color: rgb(228, 235, 228);
+            background-image: linear-gradient(rgb(124, 234, 124), rgb(0, 225, 255));
+        }
+    </style>
+    <title>Postleitzahl Input</title>
+</head>
+<body>
+    
+    <div class="container mt-5" >
+        
+        <br>
+        <br>
+        <div  id="grad1" class="round3">
+            <br><p >
+                <h1 >Bestelle Essen und viel mehr</h1>
+                <h3>Finde Restaurants, die zu dir liefern</h3>
+            </p>
+        </div>
+        <br>
+        <br>
+        <br>
+        <h2 style="text-align: center;"><b>Geben Sie bitte nochmal Ihre Postleitzahl ein</b></h2>
+        <br>
+        <br>
+
+        <form method="post">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="postleitzahl" name="postleitzahl">
+                
+            </div>
+            <button type="submit" class="button">Weiter</button>
+
+    
+        </form>
+
+
+        
+    </div>
+
+</body>
+</html>
+{% endblock %}

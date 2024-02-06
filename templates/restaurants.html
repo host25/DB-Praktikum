@@ -1,0 +1,60 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="myPraktikum.css" type="text/css">   
+    <title>Document</title>
+</head>
+<style>
+    button{
+        background-color: #7fda82;
+            color: black;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+    }
+    button:hover {
+        background-image: linear-gradient(rgb(124, 234, 124), rgb(0, 225, 255));
+        }
+</style>
+<body>
+    <div class="container">
+
+        <p>
+        <h3 style="text-align: center;">Hier können Sie ein Restaurant auswählen, der bei Ihnen Essen liefern kann, und
+            seine Speisekarte entdecken.</h3>
+            
+        </p>
+        <br>
+        <br>
+        {% for restaurant in restaurants %}
+        <div class="d-flex flex-column align-items-center">
+            <a href="{{ url_for('restaurant_details', restaurant_id=restaurant['restaurant_ID']) }}">
+
+                <div class="d-flex align-items-center">
+                    <img src="{{ url_for('static', filename=restaurant['Bild_path']) }}" alt="" style="width:100px;height:100px;margin-right: 10px;">
+
+                    <button type="button" class="d-grid gap-2 col-15 mx-auto" style="margin-left: 10px;">
+                        <strong>
+                            <h5>{{ restaurant.Name }}</h5>
+                        </strong> <br>
+                        <i>Adresse: {{ restaurant['Adresse'] }}</i>
+                    </button>
+                </div>
+            </a>
+        </div>
+        <br>
+        {% endfor %}
+
+    </div>
+</body>
+
+</html>
+{% endblock %}

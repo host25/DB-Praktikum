@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+    
+        .logo { 
+            max-width: 100%;
+            height: auto;
+            position: absolute;
+            top: 19px;
+            left:2px;   
+            margin: 140px; /* Optional: Fügt einen Abstand zum Rand hinzu */
+        }
+        .c3{
+            width: 300px;
+            height: 500px;
+            position:absolute;
+            top: 0;
+            left: 0;
+
+        }
+        .round3 {
+            border: 4px solid black;
+            text-align: center;
+            border-radius: 25px;
+            margin-left: 650px;
+            width: 750px;
+            height: 150px;
+            line-height: 29px;
+            word-spacing: 0px;
+            text-shadow: 2px 1px green;
+            font-family:cursive;
+            font-size: 1.5px;
+        }
+        #grad1 {
+            height: 250px;
+            margin-left: 200px;
+            background-color: rgb(228, 235, 228);
+            background-image: linear-gradient(rgb(124, 234, 124), rgb(0, 225, 255));
+            
+        }
+        .cardImg{
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container" > 
+        <br>
+        <br>
+        <br>
+        <div class="c3">
+            <img src="{{ url_for('static', filename='Icons/Green_White_Modern_Motorcycle_Food_Delivery_Logo__6_-removebg-preview.png') }}" alt="Logo" class="logo" >
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div  id="grad1" class="round3">
+            <br><p >
+                <h1 >Herzlich willkommen bei Lieferspatz, <br> Ihr Lieferservice in Deutschland </h1>
+                
+            </p>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        <div>
+            <p>
+                <h2 style="text-align: center; color: #057426;"><i>So Bestellst du ganz einfach und bequem: </i></h2>
+            </p>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+
+        <div class="card-group">
+            <div class="card">
+                <img src="{{ url_for('static', filename='Icons/login.jpg') }}" alt="Logo"  class="cardImg">
+                <div class="card-body">
+                    <h5 class="card-title">1-Registrieren oder einloggen</h5>
+                    <p class="card-text">Log dich ein oder erstelle ein Konto,falls du neu bei uns bist.</p>
+                    
+                </div>
+            </div>
+            <div class="card">
+                <img src="{{ url_for('static', filename='Icons/Standort.jpg') }}" alt="Logo"  class="cardImg">
+                <div class="card-body">
+                    <h5 class="card-title">2-Standort mitteilen</h5>
+                    <p class="card-text">So können  wir dir Restaurants in deiner nähe zeigen, wo du bestellen kannst.</p>
+                    
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="{{ url_for('static', filename='Icons/EssenSymbol.jpg') }}" alt="Logo"  class="cardImg">
+            <div class="card-body">
+                <h5 class="card-title">3-Worauf hast du lust?</h5>
+                <p class="card-text">Entdecke zahlreiche Speise und getränke und trifft entscheidungen.</p>
+            </div>
+            </div>
+            <div class="card">
+                <img src="{{ url_for('static', filename='Icons/LieferungEsen.jpg') }}" alt="Logo"  class="cardImg">
+            <div class="card-body">
+                <h5 class="card-title">4-Bestelle zur Lieferung</h5>
+                <p class="card-text">Du wirst dann über den Status deiner Bestellung informiert.</p>
+            </div>
+            </div>
+        </div>
+    </div>
+
+   
+   
+    
+</body>
+</html>
+
+{% endblock %}

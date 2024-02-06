@@ -1,0 +1,403 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login-Rest</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        * {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: #f3f1f1cc;
+        }
+
+        .wrapper {
+
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            gap: 3em;
+            flex-grow: 1;
+            padding: 0 40px;
+            background: transparent;
+            backdrop-filter: blur(20px);
+
+        }
+
+        .div1,
+        .div2,
+        .div3 {
+            width: 25em;
+            height: 35em;
+            background-color: #fff;
+            box-shadow: 5px 5px 25px #0000005f;
+            padding: 10px 30px;
+            border-radius: 10px;
+            background-color: #45a049;
+
+        }
+
+        @media(max-width:1200px) {
+            .wrapper {
+                height: 220%;
+                flex-direction: column;
+                position: relative;
+            }
+
+            .div1,
+            .div2,
+            .div3 {
+                max-width: 80%;
+                padding: 30px
+            }
+
+            .div1 {
+                margin-top: 100px;
+            }
+        }
+
+        .wrapper h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+
+        .wrapper .input-box {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            margin: 30px 0;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            outline: none;
+            border: 2px solid rgba(255, 255, 255, .2);
+            border-radius: 40px;
+            font-size: 16px;
+            color: #fff;
+            padding: 20px 45px 20px 20px;
+        }
+
+        .input-box input::placeholder {
+            color: #fff;
+        }
+
+        .input-box textarea {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            outline: none;
+            border: 2px solid rgba(255, 255, 255, .2);
+            border-radius: 40px;
+            font-size: 16px;
+            color: #fff;
+            padding: 20px 45px 20px 20px;
+        }
+
+        .input-box textarea::placeholder {
+            color: #fff;
+        }
+
+
+        .input-box i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+
+        .wrapper .btn {
+            width: 70%;
+            height: 45px;
+            background: #fff;
+            border: none;
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .wrapper .register-link {
+            font-size: 14.5px;
+            text-align: center;
+            margin: 20px 0 15px;
+        }
+
+        .register-link p a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link p a:hover {
+            text-decoration: underline;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #332d2d;
+        }
+
+        .btn:hover {
+        background-image: linear-gradient(rgb(124, 234, 124), rgb(0, 225, 255));
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .day-hours {
+            display: flex;
+            justify-content: center;
+            width: 70%;
+            /* Ajustez la largeur selon vos besoins */
+            height: 40px;
+            /* Ajustez la hauteur selon vos besoins */
+            padding: 2px;
+            /* Ajustez le rembourrage selon vos besoins */
+            font-size: 10px;
+        }
+
+        .day-hours input {
+            width: 50%;
+            height: 100%;
+            background: transparent;
+            outline: none;
+            border: 2px solid rgba(255, 255, 255, .2);
+            border-radius: 40px;
+            font-size: 16px;
+            color: #fff;
+            padding: 20px 45px 20px 20px;
+        }
+
+        .day-hours input::placeholder {
+            color: #fff;
+        }
+
+        .custom-style {
+            position: relative;
+            display: inline-flexbox;
+            border-radius: 10px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="wrapper">
+                <div class="div1">
+                    <span class="close-button" onclick="closeWrapper()">X</span>
+                    <h1>Konto erstellen</h1>
+                    <div class="input-box">
+                        <input type="text" placeholder="Name des Restaurants" name="Name"
+                            value="{{request.form['Name']}}" required>
+                        <i class='bx bx-store'></i>
+                    </div>
+                    <div class="input-box">
+                        <textarea id="description" rows="4" placeholder="Kurze Bechreibung" name="Beschreibung"
+                            value="{{request.form['Beschreibung']}}" required></textarea>
+                        <i class='bx bxs-edit-alt'></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" placeholder="Addresse" name="Adresse" value="{{request.form['Adresse']}}"
+                            required>
+                        <i class='bx bxs-edit-location'></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="file" name="bild" accept="image/*">
+                        <i class='bx bxs-file-image'></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" placeholder="Passwort" name="Passwort"
+                            value="{{request.form['Passwort']}}"  minlength="4" maxlength="10" required>
+                            <span id="password-message"  style="color:#0c0b0ba4">soll max 10 Zeichen haben</span>
+                        <i class='bx bxs-lock-alt'></i>
+                    </div>
+
+                </div>
+
+                <div class="div2">
+                    <label for="Oeffnungszeiten">
+                        <h4>Oeffnungszeiten:</h4>
+                        <input type="hidden" name="selected_days" value="{{ ', '.join(selected_days) }}">
+                        <label for="Montag">Montag:
+                            <input type="checkbox" id="Montag" name="selected_days" value="Montag">
+                            <div class="hours-input-container custom-style">
+                                <div class="day-hours">
+                                    <input type="text" placeholder="00:00" name="Montag_oeffnet_ab"
+                                         title="std/min"
+                                        value="{{request.form['Montag_oeffnet_ab']}}">
+                                    <input type="text" placeholder="00:00" name="Montag_schliesst_um"
+                                         title="std/min"
+                                        value="{{request.form['Montag_schliesst_um']}}">
+                                </div>
+                            </div>
+                        </label>
+                        <label for="Dienstag">Dienstag:
+                            <input type="checkbox" id="Dienstag" name="selected_days" value="Dienstag">
+                            <div class="hours-input-container custom-style">
+                                <div class="day-hours">
+                                    <input type="text" placeholder="00:00" name="Dienstag_oeffnet_ab"
+                                         title="std/min"
+                                        value="{{request.form['Dienstag_oeffnet_ab']}}">
+                                    <input type="text" placeholder="00:00" name="Dienstag_schliesst_um"
+                                         title="std/min"
+                                        value="{{request.form['Dienstag_schliesst_um']}}">
+                                </div>
+                            </div>
+                        </label>
+                        <label for="Mittwoch">Mittwoch:
+                            <input type="checkbox" id="Mittwoch" name="selected_days" value="Mittwoch">
+                            <div class="hours-input-container custom-style">
+                                <div class="day-hours">
+                                    <input type="text" placeholder="00:00" name="Mittwoch_oeffnet_ab"
+                                         title="std/min"
+                                        value="{{request.form['Mittwoch_oeffnet_ab']}}">
+                                    <input type="text" placeholder="00:00" name="Mittwoch_schliesst_um"
+                                        title="std/min"
+                                        value="{{request.form['Mittwoch_schliesst_um']}}">
+                                </div>
+                            </div>
+                        </label>
+                        <label for="Donnerstag">Donnerstag:
+                            <input type="checkbox" id="Donnerstag" name="selected_days" value="Donnerstag">
+                            <div class="hours-input-container custom-style">
+                                <div class="day-hours">
+                                    <input type="text" placeholder="00:00" name="Donnerstag_oeffnet_ab"
+                                         title="std/min"
+                                        value="{{request.form['Donnerstag_oeffnet_ab']}}">
+                                    <input type="text" placeholder="00:00" name="Donnerstag_schliesst_um"
+                                         title="std/min"
+                                        value="{{request.form['Donnerstag_schliesst_um']}}">
+                                </div>
+                            </div>
+                        </label>
+                        <label for="Freitag">Freitag:
+                            <input type="checkbox" id="Freitag" name="selected_days" value="Freitag">
+                            <div class="hours-input-container custom-style">
+                                <div class="day-hours">
+                                    <input type="text" placeholder="00:00" name="Freitag_oeffnet_ab"
+                                         title="std/min"
+                                        value="{{request.form['Freitag_oeffnet_ab']}}">
+                                    <input type="text" placeholder="00:00" name="Freitag_schliesst_um"
+                                         title="std/min"
+                                        value="{{request.form['Freitag_schliesst_um']}}">
+                                </div>
+                            </div>
+                        </label>
+                        <label for="Samstag">Samstag:
+                            <input type="checkbox" id="Samstag" name="selected_days" value="Samstag">
+                            <div class="hours-input-container custom-style">
+                                <div class="day-hours">
+                                    <input type="text" placeholder="00:00" name="Samstag_oeffnet_ab"
+                                         title="std/min"
+                                        value="{{request.form['Samstag_oeffnet_ab']}}">
+                                    <input type="text" placeholder="00:00" name="Samstag_schliesst_um"
+                                         title="std/min"
+                                        value="{{request.form['Samstag_schliesst_um']}}">
+                                </div>
+                            </div>
+                        </label>
+                        <label for="Sonntag">Sonntag:
+                            <input type="checkbox" id="Sonntag" name="selected_days" value="Sonntag">
+                            <div class="hours-input-container custom-style">
+                                <div class="day-hours">
+                                    <input type="text" placeholder="00:00" name="Sonntag_oeffnet_ab"
+                                        title="std/min"
+                                        value="{{request.form['Sonntag_oeffnet_ab']}}">
+                                    <input type="text" placeholder="00:00" name="Sonntag_schliesst_um"
+                                         title="std/min"
+                                        value="{{request.form['Sonntag_schliesst_um']}}">
+                                </div>
+                            </div>
+                        </label>
+                    </label>
+                </div>
+
+
+                <div class="div3">
+                    <label for="Liefferradius">
+                        <h4>Liefferradius:</h4>
+                        <input type="hidden" name="selected_postleitzahlen"
+                            value="{{ ', '.join(selected_postleitzahlen) }}">
+                        <label for="40421">40421:
+                            <input type="checkbox" id="40421" name="selected_postleitzahl_40421" value="40421">
+                        </label><br><br>
+                        <label for="40432">40432:
+                            <input type="checkbox" id="40432" name="selected_postleitzahl_40432" value="40432">
+                        </label><br><br>
+                        <label for="62789">62789:
+                            <input type="checkbox" id="62789" name="selected_postleitzahl_62789" value="62789">
+                        </label><br><br>
+                        <label for="39478">39478:
+                            <input type="checkbox" id="39478" name="selected_postleitzahl_39478" value="39478">
+                        </label><br><br>
+                        <label for="50503">50503:
+                            <input type="checkbox" id="50503" name="selected_postleitzahl_50503" value="50503">
+                        </label><br><br>
+                        <label for="54178">54178:
+                            <input type="checkbox" id="54178" name="selected_postleitzahl_54178" value="54178">
+                        </label><br><br>
+                        <label for="25147">25147:
+                            <input type="checkbox" id="25147" name="selected_postleitzahl_25147" value="25147">
+                        </label><br><br>
+                        <label for="28963">28963:
+                            <input type="checkbox" id="28963" name="selected_postleitzahl_28963" value="28963">
+                        </label><br><br>
+                        <label for="45479">45479:
+                            <input type="checkbox" id="45479" name="selected_postleitzahl_45479" value="45479">
+                        </label><br><br>
+                    </label>
+                    <br>
+                    <div class="button-container">
+                        <button onclick="closeWrapper()" type="button">Abbrechen</button>
+                        <button type="submit" class="btn">Erstellen</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        function closeWrapper() {
+            window.history.back();
+        }
+    </script>
+</body>
+
+</html>
+{% endblock %}

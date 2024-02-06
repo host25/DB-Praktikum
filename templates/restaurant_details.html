@@ -1,0 +1,137 @@
+{% extends 'base2.html' %}
+{% block content %}
+    <div class="container">
+        <div class="d-flex align-items-center">
+            <img src="{{ url_for('static', filename=restaurant['Bild_path']) }}" alt="" style="width:100px;height:100px;margin-right: 10px;">
+
+            <div style="text-align: center;">
+                <strong><i ><h1>{{ restaurant['Name'] }}</h1></i></strong>
+                <p> <h5>{{ restaurant['Beschreibung'] }}</h5></p>
+                <p><u>Adresse</u>:  {{ restaurant['Adresse'] }}</p>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div style="text-align: right;">
+            <a href="{{ url_for('show_cart', restaurant_id=restaurant['restaurant_ID']) }}" class="btn btn-secondary button2" style=" background-color: green;" >Zum Warenkorb</a>
+
+        </div>
+        <br>
+        <br>
+
+        <h2 style="text-align: center;color: green;"><b>  Unsere Speisekarte</b></h2>
+        <br>
+        <br>
+
+        <section>
+            <div class="ItemType">
+                <h2><u>Vorspeisen</u></h2>
+                <br>
+                {% for dish in vorspeisen %}
+                    <div class="d-flex align-items-center">
+                        <img src="{{ url_for('static', filename=dish['VBild']) }}" alt="{{ dish['VName'] }}" style="width:100px;height:100px;margin-right: 10px;">
+                        <div>
+                            <b style="font-size: large;">{{ dish['VName'] }}</b><br>
+                            <i>Zutaten: {{ dish['VBeschreibung'] }}</i><br>
+                            <b><i>{{ dish['VPreis'] }} €</i></b>
+                            <form action="{{ url_for('add_to_cart' , restaurant_id=restaurant['restaurant_ID'])}}" method="post">
+                                <input type="hidden" name="item_name" value="{{ dish['VName'] }}">
+                                <input type="hidden" name="item_price" value="{{  dish['VPreis'] }}">
+                                <label for="quantity">Menge:</label>
+                                <input type="number" name="quantity" value="1" min="1">
+                                <button type="submit" class="btn btn-secondary button2">add</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <div class="ItemType">
+                <h2><u>Hauptgericht</u></h2>
+                <br>
+                {% for dish in Hauptgericht %}
+                    <div class="d-flex align-items-center">
+                        <img src="{{ url_for('static', filename=dish['HBild']) }}" alt="{{ dish['Hname'] }}" style="width:100px;height:100px;margin-right: 10px;">
+                        <div>
+                            <b style="font-size: large;">{{ dish['Hname'] }}</b><br>
+                            <i>Zutaten: {{ dish['HBeschreibung'] }}<br>
+                            <b>{{ dish['HPreis'] }} €</i></b>
+                            <form action="{{ url_for('add_to_cart' , restaurant_id=restaurant['restaurant_ID']) }}" method="post">
+                                <input type="hidden" name="item_name" value="{{ dish['HName'] }}">
+                                <input type="hidden" name="item_price" value="{{ dish['HPreis'] }}">
+                                <label for="quantity">Menge:</label>
+                                <input type="number" name="quantity" value="1" min="1">
+                                <button type="submit" class="btn btn-secondary button2">add</button>
+                            </form>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+                <br>
+            </div>
+
+            <div class="ItemType">
+                <h2><u>Nachtisch</u></h2>
+                <br>
+                {% for dish in Nachtisch %}
+                    <div class="d-flex align-items-center">
+                        <img src="{{ url_for('static', filename=dish['NBild']) }}" alt="{{ dish['Nname'] }}" style="width:100px;height:100px;margin-right: 10px;">
+                        <div>
+                            <b style="font-size: large;">{{ dish['Nname'] }}</b><br>
+                            <i>Zutaten: {{ dish['NBeschreibung'] }}<br>
+                            <b>{{ dish['NPreis'] }} €</i></b>
+                            <form action="{{ url_for('add_to_cart' , restaurant_id=restaurant['restaurant_ID'])}}" method="post">
+                                <input type="hidden" name="item_name" value="{{ dish['Nname'] }}">
+                                <input type="hidden" name="item_price" value="{{ dish['NPreis'] }}">
+                                <label for="quantity">Menge:</label>
+                                <input type="number" name="quantity" value="1" min="1">
+                                <button type="submit" class="btn btn-secondary button2">add</button>
+                            </form>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+                <br>
+            </div>
+
+            <div class="ItemType">
+                <div class="ItemType">
+                    <h2><u>Getränke</u></h2>
+                    <br>
+                    {% for dish in getraenke %}
+                        <div class="d-flex align-items-center">
+                            <img src="{{ url_for('static', filename=dish['GBild']) }}" alt="{{ dish['GName'] }}" style="width:100px;height:100px;margin-right: 10px;">
+                            <div>
+                                <b style="font-size: large;">{{ dish['Gname'] }}</b><br>
+                                <i>{{ dish['GBeschreibung'] }}<br>
+                                <b>{{ dish['GPreis'] }} €</i></b>
+                                <form action="{{ url_for('add_to_cart' , restaurant_id=restaurant['restaurant_ID']) }}" method="post">
+                                    <input type="hidden" name="item_name" value="{{ dish['GName'] }}">
+                                    <input type="hidden" name="item_price" value="{{dish['GPreis'] }}">
+                                    <label for="quantity">Menge:</label>
+                                    <input type="number" name="quantity" value="1" min="1">
+                                    <button type="submit" class="btn btn-secondary button2">add</button>
+                                </form>
+                            </div>
+                        </div>
+                        <br>
+                    {% endfor %}
+                </div>
+                
+            </div>
+            <!--  WARENKORB BUTTON -->
+            <div style="text-align: center;">
+                <a href="{{ url_for('show_cart', restaurant_id=restaurant['restaurant_ID']) }}" class="btn btn-secondary button2" style=" background-color: green;">Zum Warenkorb</a>
+
+            </div>
+        </section>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+{% endblock %}
+

@@ -1,0 +1,32 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+  <h2>Bestellung Übersicht</h2>
+
+  {% if user_order_history %}
+    <ul>
+      {% for order in user_order_history %}
+        <li>
+          <p>BestellNr{{ order['bestellNr'] }}</p>
+          <p>Datum : {{ order['created'] }}</p>
+          <p>Status : {{ order['status'] }}</p>
+          <p>Gesamtpreis : {{ order['gesamtpreis'] }}</p>
+          <p>Restaurant: {{ order['restaurant_id']}}</p>
+          
+          <ul>
+            {% for item in order['items'] %}
+              <li>
+                <p>Artikel: {{ item['item_name'] }}</p>
+                <p>Quantitäte: {{ item['quantity'] }}</p>
+                <p>price: {{ item['item_price'] }}</p>
+              </li>
+            {% endfor %}
+          </ul>
+          
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Keine Bestellung Gefunden.</p>
+  {% endif %}
+{% endblock %}
