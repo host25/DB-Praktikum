@@ -16,6 +16,8 @@ dass jedes Item beliebig oft zubereitet werden kann. Ferner legt jedes Restauran
 Sobald eine Bestellung für ein Restaurant eingeht, wird in der Webanwendung darauf hingewiesen. Das Restaurant kann die Bestellung dann sichten und entweder ablehnen oder bestätigen. Ferner kann ein Restaurant jederzeit die Bestellhistorie einsehen (alle 
 Bestellungen für dieses Restaurant). Die Historie enthält sowohl abgeschlossene, als auch laufende (also nicht abgeschlossene oder stornierte) Bestellungen. Dabei sollen alle laufenden Bestellungen zuerst gelistet werden, und danach alle abgeschlossenen und 
 stornierten Bestellungen, jeweils zeitlich sortiert nach Eingangstag und -uhrzeit. Zu jeder Bestellung kann ein Restaurant alle Details einsehen.
+Um den Bestellvorgang möglichst bequem zu gestalten, können Sie versuchen, die Speisekarten der Restaurants nach verschiedenen Kategorien aufzuteilen (Vorspeisen, Nachtisch, Getränke, Hauptgericht, etc.). Dies setzt natürlich entsprechende zusätzliche 
+Angaben auf der Seite des Restaurants voraus.
 
 ## Lieferspatz aus Sicht der Kundschaft
 Kunden können auf Lieferspatz einen Kundenaccount anlegen. Dazu müssen Vor- und Nachname, Adresse, Postleitzahl und Passwort angegeben werden. Bei dem Passwort gilt dasselbe Prinzip wie bei Restaurants. Nach erfolgreichem Login sehen Kunden eine Übersicht an Restaurants, die zu ihrer PLZ 
@@ -30,6 +32,3 @@ Beachten Sie, dass Kunden auch mehrere laufende (nicht abgeschlossene oder storn
 Ab dem Zeitpunkt des Abschickens (Kundensicht) gilt eine Bestellung als „in Bearbeitung“. Sobald die Bestellung vom Restaurant bestätigt wurde, gilt diese als „in Zubereitung“. Lehnt ein Restaurant die Bestellung ab, 
 gilt diese als „storniert“. Sobald die Bestellung zubereitet und versandt wurde, markiert das Restaurant die Bestellung als “abgeschlossen”.
 
-## Bonusaufgabe
-Um den Bestellvorgang möglichst bequem zu gestalten, können Sie versuchen, die Speisekarten der Restaurants nach verschiedenen Kategorien aufzuteilen (Vorspeisen, Nachtisch, Getränke, Hauptgericht, etc.). Dies setzt natürlich entsprechende zusätzliche 
-Angaben auf der Seite des Restaurants voraus.
