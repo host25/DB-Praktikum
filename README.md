@@ -32,3 +32,5 @@ Beachten Sie, dass Kunden auch mehrere laufende (nicht abgeschlossene oder storn
 Ab dem Zeitpunkt des Abschickens (Kundensicht) gilt eine Bestellung als „in Bearbeitung“. Sobald die Bestellung vom Restaurant bestätigt wurde, gilt diese als „in Zubereitung“. Lehnt ein Restaurant die Bestellung ab, 
 gilt diese als „storniert“. Sobald die Bestellung zubereitet und versandt wurde, markiert das Restaurant die Bestellung als “abgeschlossen”.
 
+## Studentseite 
+Projektanfang ist unter https://github.com/li-vdh/its-tutor-praxisprojectWiSe2425 zu finden. Man kann auch ganz neu von Anfang an beginnen ohne dieses Teil zu nutzen.
